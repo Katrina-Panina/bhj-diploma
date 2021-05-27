@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Класс CreateAccountForm управляет формой
  * создания нового счёта
@@ -8,7 +9,13 @@ class CreateAccountForm extends AsyncForm {
    * окно в случае успеха, а также вызывает App.update()
    * и сбрасывает форму
    * */
-  onSubmit(data) {
-
+   onSubmit(options) {
+    Account.create(options.data, (err, response) => {
+      if (response && response.success) {
+        App.getModal("createAccount").close();
+        App.update();
+        this.element.reset();
+      }
+    })
   }
 }

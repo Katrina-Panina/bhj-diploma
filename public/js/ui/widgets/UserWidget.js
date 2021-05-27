@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Класс UserWidget отвечает за
  * отображение информации о имени пользователя
@@ -11,9 +12,13 @@ class UserWidget {
    * Если переданный элемент не существует,
    * необходимо выкинуть ошибку.
    * */
-  constructor(element){
-
+   constructor(element) {
+    if (!element) {
+      throw new Error("Ошибка! Элемент не существует!");
+    }
+    this.element = element;
   }
+
 
   /**
    * Получает информацию о текущем пользователе
@@ -22,7 +27,10 @@ class UserWidget {
    * в элемент .user-name устанавливает имя
    * авторизованного пользователя
    * */
-  update(){
-
+   update() {
+    const user = User.current();
+    if (user) {
+      this.element.querySelector(".user-name").textContent = user.name;
+    }
   }
 }
