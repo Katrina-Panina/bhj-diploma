@@ -4,7 +4,7 @@
  * отображения счетов в боковой колонке
  * */
 
-class AccountsWidget {
+ class AccountsWidget {
   /**
    * Устанавливает текущий элемент в свойство element
    * Регистрирует обработчики событий с помощью
@@ -14,10 +14,8 @@ class AccountsWidget {
    * Если переданный элемент не существует,
    * необходимо выкинуть ошибку.
    * */
-   constructor(element) {
-    if (!element) {
-      throw new Error("Ошибка! Элемент не существует!");
-    }
+  constructor( element ) {
+    if(!element) throw new Error('AccountsWidget, что-то пошло не так');
     this.element = element;
     this.registerEvents();
     this.update();
@@ -30,17 +28,14 @@ class AccountsWidget {
    * (которые отображены в боковой колонке),
    * вызывает AccountsWidget.onSelectAccount()
    * */
-   registerEvents() {
-    document.querySelector(".accounts-panel").addEventListener("click", event => {
-      event.preventDefault();
-      if (event.target == this.element.querySelector(".create-account")) {
-        App.getModal("createAccount").open();
-      }
-      const currentAccount = event.target.closest(".account");
-      if (currentAccount) {
-        this.onSelectAccount(currentAccount);
-      }
-    });
+  registerEvents() {
+    document.querySelector('.create-account').onclick = () => {
+      App.getModal('createAccount').open();
+    }
+    this.element.addEventListener('click', e => {
+      this.onSelectAccount(e.target);
+    })
+    
   }
 
   /**
@@ -53,32 +48,24 @@ class AccountsWidget {
    * Отображает список полученных счетов с помощью
    * метода renderItem()
    * */
-   update() {
-    if (User.current()) {
+  update() {
+    if(User.current()) {
       Account.list(User.current(), (err, response) => {
-        if (response && response.success) {
+        if(response.success) {
           this.clear();
-          if (response.data) {
-            response.data.forEach(item => {
-              this.renderItem(item);
-            });
-          }
+          this.renderItem(response.data);
         }
-      });
+      })
     }
   }
-
 
   /**
    * Очищает список ранее отображённых счетов.
    * Для этого необходимо удалять все элементы .account
    * в боковой колонке
    * */
-   clear() {
-    const account = document.querySelectorAll(".account");
-    account.forEach(item => {
-      item.remove();
-    })
+  clear() {
+    Array.from(document.querySelectorAll('ul.sidebar-menu > li.account')).forEach(e => e.parentNode.removeChild(e));
   }
 
   /**
@@ -88,12 +75,10 @@ class AccountsWidget {
    * счёта класс .active.
    * Вызывает App.showPage( 'transactions', { account_id: id_счёта });
    * */
-   onSelectAccount(element) {
-    this.element.querySelectorAll(".active").forEach(item => {
-      item.classList.remove("active");
-    });
-    element.classList.add("active");
-    App.showPage("transactions", {account_id: element.dataset.id});
+  onSelectAccount( element ) {
+    Array.from(element.closest('.accounts-panel').querySelectorAll('.account')).forEach(e => {e.classList.remove('active')});
+    if (element.closest('.account')) { element.closest('.account').classList.add('active');
+    App.showPage('transactions', {account_id: element.closest('.account').dataset.id});}
   }
 
   /**
@@ -101,13 +86,14 @@ class AccountsWidget {
    * отображения в боковой колонке.
    * item - объект с данными о счёте
    * */
-   getAccountHTML(item) {
+  getAccountHTML(item){
     return `<li class="account" data-id="${item.id}">
-              <a href="#">
-                <span>${item.name}</span> / 
-                <span>${item.sum} ₽</span>
-              </a>
+            <a href="#">
+              <span>${item.name}</span> /
+               <span>${item.sum} ₽</span>
+            </a>
             </li>`;
+
   }
 
   /**
@@ -116,7 +102,9 @@ class AccountsWidget {
    * AccountsWidget.getAccountHTML HTML-код элемента
    * и добавляет его внутрь элемента виджета
    * */
-   renderItem( item ) {
-    this.element.insertAdjacentHTML("beforeend", this.getAccountHTML(item));
+  renderItem(data){
+    data.forEach(e => {
+      this.element.insertAdjacentHTML('beforeend', this.getAccountHTML(e));
+    })
   }
 }

@@ -1,9 +1,10 @@
+"use strict";
 /**
  * Класс Sidebar отвечает за работу боковой колонки:
  * кнопки скрытия/показа колонки в мобильной версии сайта
  * и за кнопки меню
  * */
-class Sidebar {
+ class Sidebar {
   /**
    * Запускает initAuthLinks и initToggleButton
    * */
@@ -17,14 +18,11 @@ class Sidebar {
    * переключает два класса для body: sidebar-open и sidebar-collapse
    * при нажатии на кнопку .sidebar-toggle
    * */
-   static initToggleButton() {
-    const button = document.querySelector(".sidebar-mini");
-    const toggle = document.querySelector(".sidebar-toggle");
-    toggle.addEventListener("click", event => {
-      event.preventDefault();
-      button.classList.toggle("sidebar-open");
-      button.classList.toggle("sidebar-collapse");
-    });
+  static initToggleButton() {
+    document.querySelector('.sidebar-toggle').onclick = () => {
+      document.querySelector('.sidebar-mini').classList.toggle('sidebar-open');
+      document.querySelector('.sidebar-mini').classList.toggle('sidebar-collapse');
+    }
   }
 
   /**
@@ -34,27 +32,17 @@ class Sidebar {
    * При нажатии на кнопку выхода вызывает User.logout и по успешному
    * выходу устанавливает App.setState( 'init' )
    * */
-   static initAuthLinks() {
-    const register = document.querySelector(".menu-item_register");
-    register.addEventListener("click", event => {
-      event.preventDefault();
-      App.getModal("register").open();
-    });
-
-    const login = document.querySelector(".menu-item_login");
-    login.addEventListener("click", event => {
-      event.preventDefault();
-      App.getModal("login").open();
-    });
-
-    const logout = document.querySelector(".menu-item_logout");
-    logout.addEventListener("click", event => {
-      event.preventDefault();
-      User.logout({}, (err, response) => {
-        if (response.success) {
-          App.setState("init");
-        }
-      });
-    });
+  static initAuthLinks() {
+    document.querySelector('.menu-item_register').onclick = () => {
+      App.getModal('register').open();
+    }
+    document.querySelector('.menu-item_login').onclick = () => {
+      App.getModal('login').open();
+    }
+    document.querySelector('.menu-item_logout').onclick = () => {
+      User.logout(JSON.parse(localStorage.user), (err, response) => {
+        if(response.success) App.setState('init');
+      })
+    }
   }
 }

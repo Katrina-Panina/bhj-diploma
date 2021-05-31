@@ -5,20 +5,17 @@
  * после авторизации или его выхода из системы
  * */
 
-class UserWidget {
+ class UserWidget {
   /**
    * Устанавливает полученный элемент
    * в свойство element.
    * Если переданный элемент не существует,
    * необходимо выкинуть ошибку.
    * */
-   constructor(element) {
-    if (!element) {
-      throw new Error("Ошибка! Элемент не существует!");
-    }
+  constructor(element){
+    if(!element) throw new Error('Информации нет');
     this.element = element;
   }
-
 
   /**
    * Получает информацию о текущем пользователе
@@ -27,10 +24,9 @@ class UserWidget {
    * в элемент .user-name устанавливает имя
    * авторизованного пользователя
    * */
-   update() {
-    const user = User.current();
-    if (user) {
-      this.element.querySelector(".user-name").textContent = user.name;
+  update(){
+    if(User.current()) {
+      document.querySelector('.user-name').textContent = (User.current()).name;
     }
   }
 }

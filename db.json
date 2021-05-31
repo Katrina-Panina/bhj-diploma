@@ -5,6 +5,24 @@
       "email": "demo@demo",
       "password": "demo",
       "id": "1"
+    },
+    {
+      "name": "eva",
+      "email": "eva@eva",
+      "password": "eva",
+      "id": "2crvv4kox9l2lb"
+    },
+    {
+      "name": "111",
+      "email": "111@111",
+      "password": "111",
+      "id": "2crv2gckoxajk76"
+    },
+    {
+      "name": "Катя",
+      "email": "eva1@eva1",
+      "password": "eva1",
+      "id": "2crv5cskp02rb4x"
     }
   ],
   "accounts": [
@@ -22,6 +40,26 @@
       "name": "Бизнес",
       "user_id": "1",
       "id": "3"
+    },
+    {
+      "name": "Новый счет",
+      "user_id": "2crvv4kox9l2lb",
+      "id": "2crvazokox9nhuc"
+    },
+    {
+      "name": "ваыва",
+      "user_id": "2crvv4kox9l2lb",
+      "id": "2crv7vckox9qe0d"
+    },
+    {
+      "name": "фывфыв",
+      "user_id": "2crv2gckoxajk76",
+      "id": "2crv9q0koxaksaj"
+    },
+    {
+      "name": "Сбер",
+      "user_id": "2crv5cskp02rb4x",
+      "id": "2crv5g8kp02rir0"
     }
   ],
   "transactions": [
@@ -64,15 +102,6 @@
     {
       "account_id": "2",
       "created_at": "2019-09-25 15:03:02",
-      "id": "5",
-      "name": "Фрукты",
-      "sum": 250,
-      "type": "income",
-      "user_id": "1"
-    },
-    {
-      "account_id": "2",
-      "created_at": "2019-09-25 15:03:02",
       "id": "17",
       "name": "Овощи",
       "sum": 300,
@@ -86,15 +115,6 @@
       "name": "Мясо",
       "sum": 600,
       "type": "income",
-      "user_id": "1"
-    },
-    {
-      "account_id": "2",
-      "created_at": "2019-09-27 13:27:02",
-      "id": "7",
-      "name": "Долг в банк",
-      "sum": 5000,
-      "type": "expense",
       "user_id": "1"
     },
     {
@@ -159,6 +179,42 @@
       "sum": 300000,
       "type": "expense",
       "user_id": "1"
+    },
+    {
+      "id": "2crv6zgkoyognwc",
+      "type": "income",
+      "name": "asf",
+      "sum": 500,
+      "account_id": "1",
+      "user_id": "1",
+      "created_at": "2021-05-21T18:49:56.219Z"
+    },
+    {
+      "id": "2crv5g0kp02io6i",
+      "type": "income",
+      "name": "dfg",
+      "sum": 500,
+      "account_id": "1",
+      "user_id": "1",
+      "created_at": "2021-05-22T18:11:10.697Z"
+    },
+    {
+      "id": "2crv81gkp02rq4k",
+      "type": "income",
+      "name": "ЗП",
+      "sum": 10000,
+      "account_id": "2crv5g8kp02rir0",
+      "user_id": "2crv5cskp02rb4x",
+      "created_at": "2021-05-22T18:18:13.123Z"
+    },
+    {
+      "id": "2crva90kp02ryi5",
+      "type": "expense",
+      "name": "Коммуналочка",
+      "sum": 1000,
+      "account_id": "2crv5g8kp02rir0",
+      "user_id": "2crv5cskp02rb4x",
+      "created_at": "2021-05-22T18:18:23.980Z"
     }
   ]
 }

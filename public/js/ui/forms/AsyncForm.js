@@ -6,17 +6,15 @@
  * с таких форм собираются и передаются в метод onSubmit
  * для последующей обработки
  * */
-class AsyncForm {
+ class AsyncForm {
   /**
    * Если переданный элемент не существует,
    * необходимо выкинуть ошибку.
    * Сохраняет переданный элемент и регистрирует события
    * через registerEvents()
    * */
-   constructor(element) {
-    if (!element) {
-      throw new Error("Ошибка! Элемент не существует!");
-    }
+  constructor(element) {
+    if(!element) throw new Error('Формы не существует');
     this.element = element;
     this.registerEvents();
   }
@@ -25,8 +23,9 @@ class AsyncForm {
    * Необходимо запретить отправку формы и в момент отправки
    * вызывает метод submit()
    * */
-   registerEvents() {
-    this.element.addEventListener("submit", event => {
+  
+  registerEvents() {
+    this.element.addEventListener('submit', (event) => {
       event.preventDefault();
       this.submit();
     })
@@ -39,21 +38,12 @@ class AsyncForm {
    *  'название поля формы 2': 'значение поля формы 2'
    * }
    * */
-   getData() {
-    let formData = new FormData(this.element);
-    let entries = formData.entries();
-    let objectData = {};
-
-    for (let item of entries) {
-      const key = item[0],
-            value = item[1];
-      objectData[key] = value;
-    }
-    return objectData;
-  }
-
-  onSubmit(options) {
-
+  getData() {
+    let output = {};
+    Array.from(this.element.querySelectorAll('.form-control')).forEach(e => {
+      output[e.name] = e.value;
+    });
+    return output;
   }
 
   onSubmit(options){
@@ -64,8 +54,7 @@ class AsyncForm {
    * Вызывает метод onSubmit и передаёт туда
    * данные, полученные из метода getData()
    * */
-   submit() {
-    let data = this.getData();
-    this.onSubmit({data});
+  submit() {
+    this.onSubmit(this.getData());
   }
 }
