@@ -12,7 +12,7 @@
    * и сбрасывает форму
    * */
   onSubmit(options) {
-    Account.create(options.data, (err, response) => {
+    Account.create(options, (err, response) => {
       if (response && response.success) {
         App.getModal("createAccount").close();
         App.update();
